@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://mrdoob.com/lab/javascript/webgl/clouds/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Clouds</title>
+		
+		<style type="text/css">
+
+			body {
+				background-color: #fbe7ff;
+				margin: 0px;
+				overflow: hidden;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				font-weight: bold;
+				text-align:center;
+			}
+
+			a {
+				color:#fce1ff;
+			}
+
+		</style>
+	<script type="text/javascript" async="" src="./Clouds_files/ga.js"></script></head>
+	<body cz-shortcut-listen="true">
+
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-86951-7']);
+		  _gaq.push(['_trackPageview']);
+ 
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+		  })();
+		</script>
+
+		<script type="text/javascript" src="./Clouds_files/three.min.js"></script>
+		<script type="text/javascript" src="./Clouds_files/Detector.js"></script>
+		<script type="text/javascript" src="./Clouds_files/jquery.min.js"></script>
+		<script type="text/javascript" src="./Clouds_files/yawn.js"></script>
+		<script id="vs" type="x-shader/x-vertex">
+
+			varying vec2 vUv;
+
+			void main() {
+
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+
+		</script>
+
+		<script id="fs" type="x-shader/x-fragment">
+
+			uniform sampler2D map;
+
+			uniform vec3 fogColor;
+			uniform float fogNear;
+			uniform float fogFar;
+
+			varying vec2 vUv;
+
+			void main() {
+
+				float depth = gl_FragCoord.z / gl_FragCoord.w;
+				float fogFactor = smoothstep( fogNear, fogFar, depth );
+
+				gl_FragColor = texture2D( map, vUv );
+				gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+				gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+
+			}
+
+		</script>
+
+		<script type="text/javascript">
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+			var container;
+			var camera, scene, renderer;
+			var mesh, geometry, material;
+
+			var mouseX = 0, mouseY = 0;
+			var start_time = Date.now();
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			init();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				// Bg gradient
+
+				var canvas = document.createElement( 'canvas' );
+				canvas.width = 32;
+				canvas.height = window.innerHeight;
+
+				var context = canvas.getContext( '2d' );
+
+				var gradient = context.createLinearGradient( 0, 0, 0, canvas.height );
+				gradient.addColorStop(0, "#132e4d");
+				gradient.addColorStop(0.5, "#1e4877");
+
+				context.fillStyle = gradient;
+				context.fillRect(0, 0, canvas.width, canvas.height);
+
+				container.style.background = 'url(' + canvas.toDataURL('image/png') + ')';
+				container.style.backgroundSize = '32px 100%';
+
+				//
+
+				camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 3000 );
+				camera.position.z = 6000;
+
+				scene = new THREE.Scene();
+
+				geometry = new THREE.Geometry();
+
+				var texture = THREE.ImageUtils.loadTexture( 'cloud10.png', null, animate );
+				texture.magFilter = THREE.LinearMipMapLinearFilter;
+				texture.minFilter = THREE.LinearMipMapLinearFilter;
+
+				var fog = new THREE.Fog( 0x1e4877, - 100, 3000 );
+
+				material = new THREE.ShaderMaterial( {
+
+					uniforms: {
+
+						"map": { type: "t", value: texture },
+						"fogColor" : { type: "c", value: fog.color },
+						"fogNear" : { type: "f", value: fog.near },
+						"fogFar" : { type: "f", value: fog.far },
+
+					},
+					vertexShader: document.getElementById( 'vs' ).textContent,
+					fragmentShader: document.getElementById( 'fs' ).textContent,
+					depthWrite: false,
+					depthTest: false,
+					transparent: true
+
+				} );
+
+				var plane = new THREE.Mesh( new THREE.PlaneGeometry( 64, 64 ) );
+
+				for ( var i = 0; i < 8000; i++ ) {
+
+					plane.position.x = Math.random() * 1000 - 500;
+					plane.position.y = - Math.random() * Math.random() * 200 - 15;
+					plane.position.z = i;
+					plane.rotation.z = Math.random() * Math.PI;
+					plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
+
+					THREE.GeometryUtils.merge( geometry, plane );
+
+				}
+
+				mesh = new THREE.Mesh( geometry, material );
+				scene.add( mesh );
+
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.position.z = - 8000;
+				scene.add( mesh );
+
+				renderer = new THREE.WebGLRenderer( { antialias: false } );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onDocumentMouseMove( event ) {
+
+				mouseX = ( event.clientX - windowHalfX ) * 0.25;
+				mouseY = ( event.clientY - windowHalfY ) * 0.15;
+
+			}
+
+			function onWindowResize( event ) {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				position = ( ( Date.now() - start_time ) * 0.03 ) % 8000;
+
+				camera.position.x += ( mouseX - camera.position.x ) * 0.01;
+				camera.position.y += ( - mouseY - camera.position.y ) * 0.01;
+				camera.position.z = - position + 8000;
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+		
+		<div style="background: url(&quot;data:image/png;base64,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&quot;) 0% 0% / 32px 100%;"><canvas width="2552" height="1318" style="width: 1276px; height: 659px;"></canvas>
+		<div id="box">
+			<div class="json"></div>
+			<video id="myVideo">
+
+			</video>
+		</div></div>
+	
+
+</body>
+<style type="text/css">
+	#box {
+		width: 379px;
+		height: 379px;
+		position: absolute;
+		top:0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+
+		margin: auto;
+	}
+</style>
+</html>
