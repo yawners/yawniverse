@@ -15,7 +15,7 @@ $(document).ready(function(){
     var audioJSON = "audios.json"
 
     var piano = new Audio("piano.mp3")
-
+    piano.loop = true;
     piano.play()
 
     $.getJSON({
