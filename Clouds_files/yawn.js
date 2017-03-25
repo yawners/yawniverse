@@ -1,5 +1,5 @@
-$(document).ready(function(){
-
+function initYawns() {
+    
 //    var query = 'yawn';
 //    var qUrl = 'http://api.giphy.com/v1/gifs/search?q='+query+'&api_key=dc6zaTOxFJmzC&limit=100&offset=';
     var gData;
@@ -71,4 +71,4 @@ $(document).ready(function(){
     function getRandom(n) {
         return Math.floor(Math.random()*n);
     }
-})
+};
