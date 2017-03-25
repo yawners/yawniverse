@@ -95,10 +95,7 @@
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
 
-			// initialise video tracking
-			init();
 			
-			initYawns();
 
 			function init() {
 
@@ -281,7 +278,7 @@
 </style>
 
 <script>
-				var startTime = new Date();
+				var startTime;
 
 				var timerBox = document.getElementById('timerBox');
 				var checkbox = document.getElementById('hideCam');
@@ -303,6 +300,10 @@
 					
 
 					console.log('hiding');
+				}
+
+				function startTimer () {
+					startTime = new Date();
 				}
 				
 				var ctrack = new clm.tracker({useWebGL : true});
@@ -408,7 +409,14 @@
 				}
 				
 
-				
+				$(document).ready(function(){
+					// initialise video tracking
+					init();
+					
+					initYawns();
+
+					startTimer();
+				})
 			</script>
 
 			<style type="text/css">
