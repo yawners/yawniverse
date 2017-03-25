@@ -2,8 +2,6 @@
 <!-- saved from url=(0046)http://mrdoob.com/lab/javascript/webgl/clouds/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fascinate Inline">
-
 		<script src="face/clmtrackr.js"></script>	
 		<script src="face/model_pca_20_svm.js"></script>
 		<script src="face/utils.js"></script>
@@ -94,7 +92,7 @@
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
 
-			
+			init();
 
 			function init() {
 
@@ -226,11 +224,8 @@
 
 					</h3>
 			</div>
-
 			<div id="box">
-				   
-
-
+				
 				<video id="myVideo">
 
 				</video>
@@ -257,7 +252,7 @@
 </style>
 
 <script>
-				var startTime;
+				var startTime = new Date();
 
 				var timerBox = document.getElementById('timerBox');
 				var checkbox = document.getElementById('hideCam');
@@ -279,10 +274,6 @@
 					
 
 					console.log('hiding');
-				}
-
-				function startTimer () {
-					startTime = new Date();
 				}
 				
 				var ctrack = new clm.tracker({useWebGL : true});
@@ -388,16 +379,7 @@
 				}
 				
 
-				//$(document).ready(function(){
-					// initialise video tracking
-					startTimer();
-					
-					init();
-					
-					initYawns();
-
-					
-				//})
+				
 			</script>
 
 			<style type="text/css">
@@ -434,24 +416,5 @@
     			z-index: 100;
 			}
 			
-			</style>
-
-			<style>
-				.modal {
-					display: block;
-				}
-				.text {
-					color: pink;
-					font-size: 40px;
-					font-family: 'Fascinate Inline', serif;
-				}
-				.button {
-					background-color: #163558;
-				}
-				.button:hover {
-				/*// note: 100% is baseline so 85% is slightly darker, 20% would be significantly darker*!*!*!*!*/
-					filter: brightness(70%);
-					color: #ffffff;
-				}
 			</style>
 </html>
