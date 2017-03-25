@@ -20,8 +20,8 @@ This project was developed in a couple of hours for the Stupid Hackathon held in
 
 Our team is made up of:
 - Daniel Bruzual (me) [djbb7](https://github.com/djbb7)
-- Roosa Kallionää
-- Maxim Afteniy [MaxMax1992](https://github.com/maxmax1992)
+- Roosa Kallionää [roosakallionpaa](https://github.com/roosakallionpaa)
+- Maxim Afteniy [maxmax1992](https://github.com/maxmax1992)
 
 ## Credits
 
