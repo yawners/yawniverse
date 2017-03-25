@@ -1,8 +1,8 @@
 # Yawniverse
 
-[![play_screen](https://github.com/yawners/yawniverse/raw/master/screenshots/playing.png)](https://github.com/yawners/yawniverse/raw/master/screenshots/playing.png)
+![play_screen](https://github.com/yawners/yawniverse/raw/master/screenshots/play_small.png)
 
-[![last_screen](https://github.com/yawners/yawniverse/raw/master/screenshots/lost.png)](https://github.com/yawners/yawniverse/raw/master/screenshots/lost.png)
+![lost_screen](https://github.com/yawners/yawniverse/raw/master/screenshots/lost_small.png)
 
 Yawning is one of the most contagious things in the world. How long can you resist the urge to yawn?
 
