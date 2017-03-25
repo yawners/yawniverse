@@ -370,18 +370,18 @@
 							mSeen = 0
 
 							if (shiftingAvg < threshold && gameActive) {
+
 								console.log("You yawned");
 
-								alert('You Snooze, you loose!');
+								videoBox.get(0).pause();
 
 								var currTime = new Date();
 								var timer = Math.floor((currTime - startTime)/1000);
 
-								alert('Your score: '+timer+' sec');
-								
-								gameActive = false;
+								alert('You Snooze, you loose!' +'\n\n'+'You yawned'+'\n\n'+'Your score: '+timer+' sec');
 
-								videoBox.get(0).pause();
+								startTime = currTime;
+								videoBox.get(0).play();
 								
 							} 
 						}
