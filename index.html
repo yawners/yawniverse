@@ -313,6 +313,7 @@
 					ctrack.start(vid);
 					// start loop to draw face
 					drawLoop();
+					positionLoop();
 				}
 				
 				function drawLoop() {
@@ -324,6 +325,13 @@
 					}
 				}
 				
+				function positionLoop() {
+					requestAnimationFrame(positionLoop);
+					var positions = ctrack.getCurrentPosition();
+					console.log(positions);
+				}
+				
+
 				
 			</script>
 
