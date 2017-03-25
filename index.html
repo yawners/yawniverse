@@ -279,17 +279,17 @@
 				} else {
 					alert("Your browser does not seem to support getUserMedia, using a fallback video instead.");
 				}
-/*
+
 				vid.addEventListener('canplay', startVideo, false);
 				
 				function startVideo() {
 					// start video
 					vid.play();
 					// start tracking
-					ctrack.start(vid);
+					//ctrack.start(vid);
 					// start loop to draw face
-					drawLoop();
-					positionLoop();
+					//drawLoop();
+					//positionLoop();
 				}
 				
 				function drawLoop() {
@@ -306,7 +306,7 @@
 					var positions = ctrack.getCurrentPosition();
 
 					
-					var mLeft = positions[44]
+				/*	var mLeft = positions[44]
 					var mRight = positions[50]
 					var mTop = positions[60]
 					var mBottom = positions[57]
@@ -314,9 +314,9 @@
 					var distLR = Math.sqrt(Math.pow(mRight[1]-mLeft[1], 2) + Math.pow(mRight[0]-mLeft[0], 2))
 					var distTB = Math.sqrt(Math.pow(mTop[1]-mBottom[1], 2) + Math.pow(mTop[0]-mBottom[0], 2))
 
-					console.log('TB: '+distTB+' LR: '+distLR+' R: '+distLR/distTB);
+					console.log('TB: '+distTB+' LR: '+distLR+' R: '+distLR/distTB);*/
 				}
-				*/
+				
 
 				
 			</script>
