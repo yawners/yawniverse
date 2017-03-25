@@ -252,6 +252,8 @@
 </style>
 
 <script>
+				var gameActive = true;
+
 				var startTime = new Date();
 
 				var timerBox = document.getElementById('timerBox');
@@ -366,7 +368,7 @@
 							shiftingAvg = shiftingAvg/mSize
 							mSeen = 0
 
-							if (shiftingAvg < threshold) {
+							if (shiftingAvg < threshold && gameActive) {
 								console.log("You yawned");
 
 								alert('You Snooze, you loose!');
@@ -375,6 +377,8 @@
 								var timer = Math.floor((currTime - startTime)/1000);
 
 								alert('Your score: '+timer+' sec');
+								
+								gameActive = false;
 								
 								
 							} 
