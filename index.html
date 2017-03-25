@@ -251,8 +251,6 @@
 				var ctrack = new clm.tracker({useWebGL : true});
 				ctrack.init(pModel);
 				
-				
-
 				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 				window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
 
@@ -294,6 +292,7 @@
 					positionLoop();
 				}
 				
+				// draw face features on top of video
 				function drawLoop() {
 					requestAnimFrame(drawLoop);
 					overlayCC.clearRect(0, 0, 400, 300);
@@ -303,20 +302,42 @@
 					}
 				}
 				
+				var shiftingAvg = 0;
+				var mSeen = 0;
+				var mSize = 10;
+
 				function positionLoop() {
 					requestAnimationFrame(positionLoop);
 					var positions = ctrack.getCurrentPosition();
 
-					console.log(positions);
-				/*	var mLeft = positions[44]
+					//get mouth coordinates
+					var mLeft = positions[44]
 					var mRight = positions[50]
 					var mTop = positions[60]
 					var mBottom = positions[57]
 
-					var distLR = Math.sqrt(Math.pow(mRight[1]-mLeft[1], 2) + Math.pow(mRight[0]-mLeft[0], 2))
-					var distTB = Math.sqrt(Math.pow(mTop[1]-mBottom[1], 2) + Math.pow(mTop[0]-mBottom[0], 2))
+					//calculate length-height ratio to see if mouth is open
+					if (Array.isArray(mLeft) && mLeft.length==2 &&
+						Array.isArray(mRight) && mRight.length==2 &&
+						Array.isArray(mTop) && mTop.length==2 &&
+						Array.isArray(mBottom) && mBottom.length==2 ) {
+							
+						var distLR = Math.sqrt(Math.pow(mRight[1]-mLeft[1], 2) + Math.pow(mRight[0]-mLeft[0], 2))
+						
+						var distTB = Math.sqrt(Math.pow(mTop[1]-mBottom[1], 2) + Math.pow(mTop[0]-mBottom[0], 2))
 
-					console.log('TB: '+distTB+' LR: '+distLR+' R: '+distLR/distTB);*/
+						// average several measurements to avoid errors
+						if (mSeen < mSize) {
+							shiftingAvg += (distLR/distTB)
+							mSeen += 1
+						} else {
+							shiftingAvg = shiftingAvg/mSize
+							mSeen = 0
+							console.log(shiftingAvg)
+						}
+					}
+
+					//console.log('TB: '+distTB+' LR: '+distLR+' R: '+distLR/distTB);
 				}
 				
 
