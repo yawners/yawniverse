@@ -260,7 +260,7 @@
 				var overlay = document.getElementById('overlay');
 				var overlayCC = overlay.getContext('2d');
 				
-				/*
+				
 				function toggleVideo() {
 
 					vid.style.display = 'none';
@@ -268,7 +268,7 @@
 					overlay.style.display = 'none';
 
 					console.log('hiding');
-				}*/
+				}
 				
 				var ctrack = new clm.tracker({useWebGL : true});
 				ctrack.init(pModel);
@@ -402,6 +402,10 @@
 				width : 200px;
 				top: 0px;
 				/*margin : 0px auto;*/
+			}
+			#hideCam {
+				position: absolute;
+    			z-index: 100;
 			}
 			
 			</style>
