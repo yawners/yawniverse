@@ -328,7 +328,16 @@
 				function positionLoop() {
 					requestAnimationFrame(positionLoop);
 					var positions = ctrack.getCurrentPosition();
-					console.log(positions);
+
+					var mLeft = positions[44]
+					var mRight = positions[50]
+					var mTop = positions[60]
+					var mBottom = positions[57]
+
+					var distLR = Math.sqrt(Math.pow(mRight[1]-mLeft[1], 2) + Math.pow(mRight[0]-mLeft[0], 2))
+					var distTB = Math.sqrt(Math.pow(mTop[1]-mBottom[1], 2) + Math.pow(mTop[0]-mBottom[0], 2))
+
+					console.log('TB: '+distTB+' LR: '+distLR+' R: '+distTB/distLR);
 				}
 				
 
