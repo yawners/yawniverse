@@ -212,7 +212,7 @@
 
 			}
 
-		</script><input class="btn" type="button" value="start" onclick="startVideo()" id="startbutton">
+		</script>
 		<div id="container">
 				<video id="videoel" width="400" height="300" preload="auto" loop>
 					<!--<video id="videoel" width="320" height="240" preload="auto">-->
@@ -308,7 +308,7 @@
 					alert("Your browser does not seem to support getUserMedia, using a fallback video instead.");
 				}
 
-				vid.addEventListener('canplay', enablestart, false);
+				vid.addEventListener('canplay', startVideo, false);
 				
 				function startVideo() {
 					// start video
