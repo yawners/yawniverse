@@ -368,8 +368,16 @@
 
 							if (shiftingAvg < threshold) {
 								console.log("You yawned");
-							} else {
-							}
+
+								alert('You Snooze, you loose!');
+
+								var currTime = new Date();
+								var timer = Math.floor((currTime - startTime)/1000);
+
+								alert('Your score: '+timer+' sec');
+								
+								
+							} 
 						}
 					}
 
