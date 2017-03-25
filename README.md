@@ -1,5 +1,9 @@
 # Yawniverse
 
+[![play_screen](https://github.com/yawners/yawniverse/raw/master/screenshots/playing.png)](https://github.com/yawners/yawniverse/raw/master/screenshots/playing.png)
+
+[![last_screen](https://github.com/yawners/yawniverse/raw/master/screenshots/lost.png)](https://github.com/yawners/yawniverse/raw/master/screenshots/lost.png)
+
 Yawning is one of the most contagious things in the world. How long can you resist the urge to yawn?
 
 Try it with this amazing game! [https://yawners.github.io/yawniverse/](https://yawners.github.io/yawniverse/)
