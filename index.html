@@ -302,9 +302,13 @@
 					}
 				}
 				
+				// compute a shifting average of measurements
 				var shiftingAvg = 0;
-				var mSeen = 0;
-				var mSize = 10;
+				var mSeen = 0; 
+				var mSize = 10; // how many measurements to average
+
+				// lower than this means the mouth is open
+				var threshold = 4.4;
 
 				function positionLoop() {
 					requestAnimationFrame(positionLoop);
@@ -333,7 +337,11 @@
 						} else {
 							shiftingAvg = shiftingAvg/mSize
 							mSeen = 0
-							console.log(shiftingAvg)
+
+							if (shiftingAvg < threshold) {
+								console.log("You yawned");
+							} else {
+							}
 						}
 					}
 
