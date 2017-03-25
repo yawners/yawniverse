@@ -255,6 +255,7 @@
 				var startTime = new Date();
 
 				var timerBox = document.getElementById('timerBox');
+				var checkbox = document.getElementById('hideCam');
 
 				var vid = document.getElementById('videoel');
 				var overlay = document.getElementById('overlay');
@@ -263,9 +264,14 @@
 				
 				function toggleVideo() {
 
-					vid.style.display = 'none';
-
-					overlay.style.display = 'none';
+					if (checkbox.checked) {				
+						vid.style.display = 'none';
+						overlay.style.display = 'none';
+					} else {
+						vid.style.display = 'none';
+						overlay.style.display = 'none';
+					}
+					
 
 					console.log('hiding');
 				}
@@ -386,6 +392,7 @@
 				transform : scaleX(-1);
 				-ms-filter : fliph; /*IE*/
 				filter : fliph; /*IE*/
+				display: none;
 			}
 
 			#videoel {
@@ -394,6 +401,7 @@
 				transform : scaleX(-1);
 				-ms-filter : fliph; /*IE*/
 				filter : fliph; /*IE*/
+				display: none;
 			}
 			
 			#container {
