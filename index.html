@@ -258,6 +258,7 @@
 
 				var timerBox = document.getElementById('timerBox');
 				var checkbox = document.getElementById('hideCam');
+				var videoBox = $('#myVideo');
 
 				var vid = document.getElementById('videoel');
 				var overlay = document.getElementById('overlay');
@@ -379,7 +380,8 @@
 								alert('Your score: '+timer+' sec');
 								
 								gameActive = false;
-								
+
+								videoBox.get(0).pause();
 								
 							} 
 						}
